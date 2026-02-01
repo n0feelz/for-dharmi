@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For DIKU</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    background: linear-gradient(180deg, #1f2a44, #2e3b55);
+    color: #f5f5f5;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-align: center;
+    padding: 40px 18px;
+  }
+
+  .card {
+    background: rgba(0, 0, 0, 0.55);
+    padding: 28px;
+    border-radius: 18px;
+    max-width: 760px;
+    margin: auto;
+  }
+
+  img {
+    max-width: 220px;
+    border-radius: 14px;
+    margin: 18px 0;
+  }
+
+  p {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin: 14px;
+    padding: 14px 28px;
+    font-size: 1rem;
+    border-radius: 26px;
+    border: none;
+    cursor: pointer;
+    background: #9ec5e5;
+    color: #1f2a44;
+  }
+
+  button.secondary {
+    background: #bfc7d1;
+  }
+</style>
+</head>
+<body>
+
+<div id="app" class="card"></div>
+
+<script>
+const app = document.getElementById("app");
+
+function start() {
+  app.innerHTML = `
+    <p><strong>Hi Dharmi</strong></p>
+    <p>
+      Also known as DIKU. Sometimes DHARU.
+      Always the person who mattered to me the most.
+    </p>
+    <button onclick="step1()">Okay</button>
+  `;
+}
+
+function step1() {
+  app.innerHTML = `
+    <p>
+      I played with your feelings in every way.
+    </p>
+    <p>
+      I became unreal. I became hard. I became way too rude.
+    </p>
+    <button onclick="step2()">Go on</button>
+  `;
+}
+
+function step2() {
+  app.innerHTML = `
+    <p>
+      And the worst part is you were always gentle with me.
+    </p>
+    <p>
+      You stayed calm when I did not.
+      You tried to understand when I made things difficult.
+    </p>
+    <button onclick="step3()">Continue</button>
+  `;
+}
+
+function step3() {
+  app.innerHTML = `
+    <p>
+      Every time I met you, I was anxious and nervous.
+    </p>
+    <p>
+      Not because I did not care,
+      but because you mattered to me the most.
+    </p>
+    <button onclick="step4()">Continue</button>
+  `;
+}
+
+function step4() {
+  app.innerHTML = `
+    <p>
+      Instead of being real and soft with you,
+      I became defensive and distant.
+    </p>
+    <p>
+      That was unfair to you.
+    </p>
+    <button onclick="step5()">Continue</button>
+  `;
+}
+
+function step5() {
+  app.innerHTML = `
+    <p>
+      I am really sorry, diku.
+    </p>
+    <p>
+      No matter how tired or anxious I was,
+      you should never have been treated that way.
+    </p>
+    <button onclick="step6()">Continue</button>
+  `;
+}
+
+function step6() {
+  app.innerHTML = `
+    <p>
+      I want you to remember this version of you.
+    </p>
+    <img src="diku-childhood.jpg" alt="Diku childhood photo">
+    <p>
+      This gentle, smiling person.
+    </p>
+    <p>
+      I should have protected this smile,
+      not tested its patience.
+    </p>
+    <button onclick="finalStep()">Continue</button>
+  `;
+}
+
+function finalStep() {
+  app.innerHTML = `
+    <p>
+      I am not asking you to forget anything.
+    </p>
+    <p>
+      I am just asking one honest thing.
+    </p>
+    <p style="margin-top:20px; font-size:1.1rem;">
+      Will you give this <strong>babuchak</strong> a second chance?
+    </p>
+    <button onclick="yes()">Yes</button>
+    <button class="secondary" onclick="time()">I need time</button>
+  `;
+}
+
+function yes() {
+  app.innerHTML = `
+    <p>
+      Thank you, DIKU.
+    </p>
+    <p>
+      I will try every day to be calmer,
+      kinder,
+      and more present with you.
+    </p>
+    <p>
+      Less reacting.
+      More listening.
+    </p>
+    <p>
+      Your Asshole
+    </p>
+  `;
+}
+
+function time() {
+  app.innerHTML = `
+    <p>
+      That is okay.
+    </p>
+    <p>
+      Take all the time you need.
+    </p>
+    <p>
+      I will respect you and your feelings.
+    </p>
+    <p>
+      Your Asshole
+    </p>
+  `;
+}
+
+start();
+</script>
+
+</body>
+</html>
