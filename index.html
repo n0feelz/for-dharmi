@@ -1,209 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For DIKU</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Sweet Journey</title>
 
-<style>
-  body {
-    background: linear-gradient(180deg, #1f2a44, #2e3b55);
-    color: #f5f5f5;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    text-align: center;
-    padding: 40px 18px;
-  }
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  .card {
-    background: rgba(0, 0, 0, 0.55);
-    padding: 28px;
-    border-radius: 18px;
-    max-width: 760px;
-    margin: auto;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  img {
-    max-width: 220px;
-    border-radius: 14px;
-    margin: 18px 0;
-  }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-  p {
-    line-height: 1.7;
-    font-size: 1.05rem;
-    margin-bottom: 16px;
-  }
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      width: 92%;
+      max-width: 520px;
+      border-radius: 24px;
+      padding: 24px 20px 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
 
-  button {
-    margin: 14px;
-    padding: 14px 28px;
-    font-size: 1rem;
-    border-radius: 26px;
-    border: none;
-    cursor: pointer;
-    background: #9ec5e5;
-    color: #1f2a44;
-  }
+    h1 {
+      margin: 5px 0 10px;
+      font-size: 24px;
+      color: #ff3d6e;
+    }
 
-  button.secondary {
-    background: #bfc7d1;
-  }
-</style>
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      min-height: 120px;
+      margin: 10px 0;
+    }
+
+    button {
+      margin-top: 14px;
+      padding: 12px 22px;
+      font-size: 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: #ff3d6e;
+      color: white;
+      transition: all 0.25s ease;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .music-btn {
+      background: #ff9aa2;
+      margin-top: 8px;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d88;
+      font-size: 18px;
+      animation: float 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 380px) {
+      h1 { font-size: 20px; }
+      p { font-size: 14px; }
+      button { font-size: 14px; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="app" class="card"></div>
+  <div class="card">
+    <h1>For You ❤️</h1>
+    <p id="storyText"></p>
+    <button id="nextBtn">Next</button><br>
+    <button id="musicBtn" class="music-btn">Play Music 🎵</button>
+  </div>
 
-<script>
-const app = document.getElementById("app");
+  <div class="hearts" id="hearts"></div>
 
-function start() {
-  app.innerHTML = `
-    <p><strong>Hi Dharmi</strong></p>
-    <p>
-      Also known as DIKU. Sometimes DHARU.
-      Always the person who mattered to me the most.
-    </p>
-    <button onclick="step1()">Okay</button>
-  `;
-}
+  <!-- Background Music (royalty‑free sample, replace with your own MP3 if desired) -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+  </audio>
 
-function step1() {
-  app.innerHTML = `
-    <p>
-      I played with your feelings in every way.
-    </p>
-    <p>
-      I became unreal. I became hard. I became way too rude.
-    </p>
-    <button onclick="step2()">Go on</button>
-  `;
-}
+  <script>
+    const story = [
+      "Dharmi, from the first day we met, I know I wasn’t perfect. I acted like an idiot sometimes , your favorite word, ‘asshole’ , but you still stayed and became my closest person.",
+      "And that’s why I admire you. You say you don’t deserve all this… but you deserve more kindness and love than you think. You make every space warmer just by being in it.",
+      "You changed me, Dharmi. Talking to you makes me want to be better, calmer, and stronger. Not because I have to , but because you inspire me to grow.",
+      "When I picture my future, I see Smit and Dharmi laughing over small things, supporting each other, and building a life full of peace and trust.",
+      "I see a cozy home, happy kids learning your kindness and your beautiful heart, and us smiling at how far we’ve come together.",
+      "I promise to respect you, listen to you, and never take you for granted. You are rare, Dharmi , and I want to protect that smile of yours.",
+      "So today I’m asking you for one chance… a chance to walk this journey with me and turn our friendship into something forever.",
+      "Dharmi Hapani, will you give this ‘asshole’ Smit Patel a chance to build a beautiful life with you? ❤️"
+    ];
 
-function step2() {
-  app.innerHTML = `
-    <p>
-      And the worst part is you were always gentle with me.
-    </p>
-    <p>
-      You stayed calm when I did not.
-      You tried to understand when I made things difficult.
-    </p>
-    <button onclick="step3()">Continue</button>
-  `;
-}
+    let index = 0;
+    const textEl = document.getElementById('storyText');
+    const btn = document.getElementById('nextBtn');
+    const musicBtn = document.getElementById('musicBtn');
+    const music = document.getElementById('bgMusic');
+    const hearts = document.getElementById('hearts');
 
-function step3() {
-  app.innerHTML = `
-    <p>
-      Every time I met you, I was anxious and nervous.
-    </p>
-    <p>
-      Not because I did not care,
-      but because you mattered to me the most.
-    </p>
-    <button onclick="step4()">Continue</button>
-  `;
-}
+    function typeWriter(text, i = 0) {
+      if (i < text.length) {
+        textEl.innerHTML += text.charAt(i);
+        setTimeout(() => typeWriter(text, i + 1), 28);
+      }
+    }
 
-function step4() {
-  app.innerHTML = `
-    <p>
-      Instead of being real and soft with you,
-      I became defensive and distant.
-    </p>
-    <p>
-      That was unfair to you.
-    </p>
-    <button onclick="step5()">Continue</button>
-  `;
-}
+    function showText() {
+      textEl.innerHTML = "";
+      typeWriter(story[index]);
+    }
 
-function step5() {
-  app.innerHTML = `
-    <p>
-      I am really sorry, diku.
-    </p>
-    <p>
-      No matter how tired or anxious I was,
-      you should never have been treated that way.
-    </p>
-    <button onclick="step6()">Continue</button>
-  `;
-}
+    btn.addEventListener('click', () => {
+      if (index < story.length - 1) {
+        index++;
+        showText();
+      } else {
+        btn.innerText = "Our Forever ❤️";
+      }
+    });
 
-function step6() {
-  app.innerHTML = `
-    <p>
-      I want you to remember this version of you.
-    </p>
-    <img src="diku-childhood.jpg" alt="Diku childhood photo">
-    <p>
-      This gentle, smiling person.
-    </p>
-    <p>
-      I should have protected this smile,
-      not tested its patience.
-    </p>
-    <button onclick="finalStep()">Continue</button>
-  `;
-}
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicBtn.innerText = "Pause Music ⏸";
+      } else {
+        music.pause();
+        musicBtn.innerText = "Play Music 🎵";
+      }
+    });
 
-function finalStep() {
-  app.innerHTML = `
-    <p>
-      I am not asking you to forget anything.
-    </p>
-    <p>
-      I am just asking one honest thing.
-    </p>
-    <p style="margin-top:20px; font-size:1.1rem;">
-      Will you give this <strong>babuchak</strong> a second chance?
-    </p>
-    <button onclick="yes()">Yes</button>
-    <button class="secondary" onclick="time()">I need time</button>
-  `;
-}
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (Math.random() * 10 + 14) + 'px';
+      heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+      hearts.appendChild(heart);
 
-function yes() {
-  app.innerHTML = `
-    <p>
-      Thank you, DIKU.
-    </p>
-    <p>
-      I will try every day to be calmer,
-      kinder,
-      and more present with you.
-    </p>
-    <p>
-      Less reacting.
-      More listening.
-    </p>
-    <p>
-      Your Asshole
-    </p>
-  `;
-}
+      setTimeout(() => heart.remove(), 5000);
+    }
 
-function time() {
-  app.innerHTML = `
-    <p>
-      That is okay.
-    </p>
-    <p>
-      Take all the time you need.
-    </p>
-    <p>
-      I will respect you and your feelings.
-    </p>
-    <p>
-      Your Asshole
-    </p>
-  `;
-}
+    setInterval(createHeart, 350);
 
-start();
-</script>
+    showText();
+  </script>
 
 </body>
 </html>
