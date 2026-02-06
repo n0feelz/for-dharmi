@@ -123,15 +123,18 @@
 
   <script>
     const story = [
-      "Dharmi, from the first day we met, I know I wasn’t perfect. I acted like an idiot sometimes — your favorite word, ‘asshole’ — but you still stayed and became my closest person.",
-      "And that’s why I admire you. You say you don’t deserve all this… but you deserve more kindness and love than you think. You make every space warmer just by being in it.",
-      "You changed me, Dharmi. Talking to you makes me want to be better, calmer, and stronger. Not because I have to — but because you inspire me to grow.",
+      "Dharmi, from the first day we met, I know I wasn’t perfect. I acted like an idiot sometimes, your favorite word, ‘asshole’, but you still stayed and became my closest person.",
+      "And that’s why I admire you. You say you don’t deserve all this, but you deserve more kindness and love than you think. You make every space warmer just by being in it.",
+      "You changed me, Dharmi. Talking to you makes me want to be better, calmer, and stronger. Not because I have to, but because you inspire me to grow.",
       "When I picture my future, I see Smit and Dharmi laughing over small things, supporting each other, and building a life full of peace and trust.",
       "I see a cozy home, happy kids learning your kindness and your beautiful heart, and us smiling at how far we’ve come together.",
-      "I promise to respect you, listen to you, and never take you for granted. You are rare, Dharmi — and I want to protect that smile of yours.",
-      "So today I’m asking you for one chance… a chance to walk this journey with me and turn our friendship into something forever.",
+      "I promise to respect you, listen to you, and never take you for granted. You are rare, Dharmi, and I want to protect that smile of yours.",
+      "So today I’m asking you for one chance, a chance to walk this journey with me and turn our friendship into something forever.",
       "Dharmi Hapani, will you give this ‘asshole’ Smit Patel a chance to build a beautiful life with you? ❤️"
     ];
+
+    // 🔔 Replace this with your own webhook or server endpoint
+    const RESPONSE_ENDPOINT = "https://example.com/proposal-response";
 
     let index = 0;
     const textEl = document.getElementById('storyText');
@@ -152,6 +155,41 @@
       typeWriter(story[index]);
     }
 
+    function sendResponse(choice) {
+      fetch(RESPONSE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Dharmi Hapani',
+          response: choice,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(() => {}); // silent fail to avoid breaking the moment
+    }
+
+    function showChoiceScreen() {
+      const card = document.querySelector('.card');
+      card.innerHTML = `
+        <h1>Dharmi, what does your heart say? ❤️</h1>
+        <button id="yesBtn">Yes, let’s try ❤️</button><br>
+        <button id="timeBtn" class="music-btn">I need a little time 🌿</button>
+        <p id="responseMsg"></p>
+      `;
+
+      document.getElementById('yesBtn').onclick = () => {
+        sendResponse('YES');
+        document.getElementById('responseMsg').innerText =
+          "You just made Smit the happiest idiot alive ❤️";
+        heartBurst();
+      };
+
+      document.getElementById('timeBtn').onclick = () => {
+        sendResponse('TIME');
+        document.getElementById('responseMsg').innerText =
+          "Take all the time you need. You are worth waiting for.";
+      };
+    }
+
     function finaleAnimation() {
       btn.style.display = 'none';
 
@@ -165,10 +203,9 @@
 
       document.querySelector('.card').appendChild(finale);
 
-      // Heart burst animation
-      for (let i = 0; i < 40; i++) {
-        setTimeout(() => createHeart(true), i * 80);
-      }
+      heartBurst();
+
+      setTimeout(showChoiceScreen, 2500);
     }
 
     btn.addEventListener('click', () => {
@@ -204,9 +241,14 @@
       setTimeout(() => heart.remove(), 5000);
     }
 
+    function heartBurst() {
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => createHeart(true), i * 60);
+      }
+    }
+
     setInterval(() => createHeart(false), 350);
 
-    // Pulse animation style
     const style = document.createElement('style');
     style.innerHTML = `
       @keyframes pulse {
